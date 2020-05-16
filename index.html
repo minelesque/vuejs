@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=<device-width>,initial-scale=1"><link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css integrity=sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk crossorigin=anonymous><title>Testando</title><link href=/css/app.fb0c6e1c.css rel=preload as=style><link href=/js/app.2f0bac7e.js rel=preload as=script><link href=/js/chunk-vendors.f50f9912.js rel=preload as=script><link href=/css/app.fb0c6e1c.css rel=stylesheet></head><body><div id=teste></div><script src=https://cdn.jsdelivr.net/npm/vue/dist/vue.js></script><script>new Vue({
+        el: '#teste',
+        template:`
+        <div class="container">
+
+          <h1>Direct.Store</h1>
+          <div class="form-todo for-group">
+            <p>
+            <input placeholder="teste" v-model="name" class="form-control"/>
+            </p>
+            <p>
+            <textarea placeholder="Comentario" name="message" v-model="message" class="form-control"></textarea>
+          </p>
+          <ul class="list-group">
+            <li class="list-group-item" v-for="(comment, index) in allComments">
+              <span class="comment_author">Autor: <strong>{{comment.name}}</strong>
+                <p>{{comment.message}}</p>
+              </span>
+              <div>
+                <a href="" title='Excluir' v-on:click.prevent="remove(index)">Excluir</a>
+              </div>
+            </li>
+            <br>
+          </ul>
+            <button v-on:click.prevent="addComment" type="submit"class="btn btn-primary">Vídeo</button>
+          </div>
+
+          </div>
+        `,
+
+        data(){
+                return {
+                  comments:[],
+                    name: '',
+                    message: ''
+                }
+              },
+        methods:{
+          addComment(){
+ 
+            if(/*this.name.trim() === "" || */this.message.trim() === "")
+            {
+              return;
+            }
+
+            this.comments.push({
+              name: this.name,
+              message: this.message
+            });
+
+            this.name = '';
+            this.message = ''; 
+            /*console.log('teste');
+            console.log(this.name);
+            console.log(this.message);*/
+
+
+
+          },
+          remove(index){
+            //console.log(index);
+            this.comments.splice(index,1);
+
+          }
+        },
+        computed: {
+          allComments(){
+            return this.comments.map(comment =>({
+              
+               ...comment,
+           
+              name: comment.name.trim() === '' ? 'Anonimo': comment.name
+            }))
+          }
+        },
+        watch: {
+          comments(valor) {
+            console.log('valor',valor)
+          }
+
+        }
+
+      })</script><script src=/js/chunk-vendors.f50f9912.js></script><script src=/js/app.2f0bac7e.js></script></body></html>
